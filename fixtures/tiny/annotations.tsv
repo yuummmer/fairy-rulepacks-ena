@@ -1,0 +1,56 @@
+source_accession	feature_id	gene_name	product_name
+AB015477.1	CDS_1		disease resistance protein
+AB015477.1	CDS_2		non-LTR retroelement reverse transcriptase
+AB015477.1	CDS_3		40S ribosomal protein S3
+AB015477.1	CDS_4		non-LTR retroelement reverse transcriptase-like protein
+AB015477.1	CDS_5		Myb-related transcription factor LBM2-like protein
+AB023029.1	CDS_1		S-adenosylmethionine:2-demethylmenaquinone methyltransferase-like
+KP191301.1	CDS_1	rps12	ribosomal protein S12
+PV530470.1	CDS_1	matK	tRNA-Lys
+PV530470.1	CDS_2	rps16	maturase K
+PV530470.1	CDS_3	psbK	tRNA-Gln
+PV530470.1	CDS_4	psbI	photosystem II protein K
+PV530470.1	CDS_5	atpA	tRNA-Arg
+PV530470.1	CDS_6	atpF	ATP synthase CF1 alpha subunit
+PV530470.1	CDS_7	atpH	ATP synthase CF0 subunit I
+PV530470.1	CDS_8	atpI	ATP synthase CF0 subunit III
+PV530470.1	CDS_9	rps2	ATP synthase CF0 subunit IV
+PV530470.1	CDS_10	rpoC2	ribosomal protein S2
+PV530470.1	CDS_11	rpoC1	RNA polymerase beta'' subunit
+PV530470.1	CDS_12	rpoB	RNA polymerase beta' subunit
+PV530470.1	CDS_13	psbM	tRNA-Asp
+PV530470.1	CDS_14	petN	photosystem II protein M
+PV530470.1	CDS_15	psbD	tRNA-Thr
+PV530470.1	CDS_16	psbC	photosystem II protein D2
+PV530470.1	CDS_17	psbZ	tRNA-Ser
+PV530470.1	CDS_18	rps14	tRNA-Met
+PV530470.1	CDS_19	psaB	ribosomal protein S14
+PV530470.1	CDS_20	psaA	photosystem I P700 apoprotein A2
+PV530470.1	CDS_21	ycf3	photosystem I P700 apoprotein A1
+PV530470.1	CDS_22	rps4	tRNA-Ser
+PV530470.1	CDS_23	ndhJ	tRNA-Phe
+PV530470.1	CDS_24	ndhK	NADH-plastoquinone oxidoreductase subunit J
+PV530470.1	CDS_25	ndhC	NADH-plastoquinone oxidoreductase subunit K
+PV530470.1	CDS_26	atpE	tRNA-Met
+PV530470.1	CDS_27	atpB	ATP synthase CF1 epsilon subunit
+PV530470.1	CDS_28	rbcL	ATP synthase CF1 beta subunit
+PV530470.1	CDS_29	accD	ribulose-1,5-bisphosphate carboxylase/oxygenase large subunit
+PV530470.1	CDS_30	psaI	acetyl-CoA carboxylase beta subunit
+PV530470.1	CDS_31	ycf4	photosystem I subunit VIII
+PV530470.1	CDS_32	cemA	photosystem I assembly protein Ycf4
+PV530470.1	CDS_33	petA	chloroplast envelope membrane protein
+PV530470.1	CDS_34	psbJ	cytochrome f
+PV530470.1	CDS_35	psbF	photosystem II protein J
+PV530470.1	CDS_36	psbE	photosystem II cytochrome b559 beta subunit
+PV530470.1	CDS_37	petL	photosystem II cytochrome b559 alpha subunit
+PV530470.1	CDS_38	petG	cytochrome b6/f complex subunit VI
+PV530470.1	CDS_39	psaJ	tRNA-Pro
+PV530470.1	CDS_40	rpl33	photosystem I subunit IX
+PV530470.1	CDS_41	rps18	ribosomal protein L33
+PV530470.1	CDS_42	rpl20	ribosomal protein S18
+PV530470.1	CDS_43	rps12	ribosomal protein L20
+DERIVED	DEMO_1	orfX	putative orf protein
+DERIVED	DEMO_2	geneY	pseudogene
+DERIVED	DEMO_3	geneZ	some enzyme-like protein
+DERIVED	DEMO_4	geneW	this product name is intentionally very long to test max length handling in reports and remediation guidance for submitters
+DERIVED	DEMO_5	geneV	contains    weird   spacing
