@@ -9,11 +9,14 @@ This repository contains **ENA-focused rulepacks** for **FAIRy** — a local-fir
 ---
 
 ## What’s inside
+> Note: the committed tiny fixture is currently **CSV** (`fixtures/tiny/annotations.csv`) while TSV support is being added.  
+> After TSV support lands, we’ll switch the fixture + examples to `.tsv` (or support both).
+
 
 - `rulepacks/`
   - `ena_webin_cli/` — starter ENA community rulepack (Webin-style naming/annotation hygiene checks)
 - `fixtures/`
-  - `tiny/annotations.tsv` — committed tiny fixture used for demos/tests
+  - `tiny/annotations.csv` — committed tiny fixture used for demos/tests
   - `PROVENANCE.md` — where fixtures came from and how they were derived
 - `scripts/`
   - `extract_embl_products.py` — helper to extract CDS `/product` (and gene/locus when present) from EMBL flatfiles into TSV
@@ -31,7 +34,8 @@ pip install -e /path/to/fairy-core
 ```
 ---
 ## Quickstart (dev workflow)
-### 1)Generate/refresh the derived TSV from ENA EMBL flatfiles
+### Generate/refresh the derived CSV from ENA EMBL flatfiles
+
 1. Download one or more ENA records as EMBL flatfile (public INSDC/ENA accessions).
 2. Put them under:
 
@@ -43,26 +47,29 @@ fixtures/raw_downloads/ena_embl
 python scripts/extract_embl_products.py
 ```
 This writes:
-`fixtures/tiny/annotations_all.tsv` (derived pool)
+`fixtures/tiny/annotations_all.csv` (derived pool)
 Then curate/update:
-`fixtures/tiny/annotations.tsv` (committed tiny fixture)
+`fixtures/tiny/annotations.csv` (committed tiny fixture)
 See `fixtures/PROVENANCE.md` for sourcing and notes.
 ---
 
 ## Running FAIRy with ENA rulepack
 
-From your `fairy-core` environment, run FAIRy against a fixture file with the ENA rulepack (exact CLI flags may vary depending on your FAIRy version):
+Run FAIRy against a fixture file with the ENA rulepack::
 
 ```bash
+mkdir -p out
+
 fairy validate \
+  --inputs default=fixtures/tiny/annotations.csv \
   --rulepack rulepacks/ena_webin_cli/rulepack.yaml \
-  --input fixtures/tiny/annotations.tsv \
-  --out out/
+  --report-md out/ena_validate.md \
+  --report-json out/ena_validate.json
 
 ```
 Outputs typically include:
-- `report.md` (human-readable)
-- `report.json` (machine-readable)
+- `out/ena_validate.md` (human-readable)
+- `out/ena_validate.json` (machine-readable)
 ---
 ## Contributing
 Issues and PRs welcome:

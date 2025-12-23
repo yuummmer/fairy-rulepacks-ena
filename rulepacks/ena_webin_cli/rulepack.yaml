@@ -1,0 +1,99 @@
+meta:
+  name: ena_webin_cli
+  version: 0.1.0
+  description: Community starter rulepack inspired by common ENA/Webin feedback patterns.
+  target: csv
+
+tables:
+  default:
+    path: fixtures/tiny/annotations.csv
+
+rules:
+  # ---------------------------------------------------------------------------
+  # Core identifiers (blocking-ish)
+  # Rationale: basic presence checks so downstream naming/hygiene rules are meaningful.
+  # Note: currently WARN (not FAIL) to stay "starter" / non-blocking.
+  # ---------------------------------------------------------------------------
+  - id: ena_product_name_present
+    type: required
+    severity: warn
+    config:
+      pattern: "annotations*.csv"
+      columns:
+        - product_name
+
+  # ---------------------------------------------------------------------------
+  # Product naming heuristics (Webin-style feedback)
+  # Rationale: discourage overly long or vague product names.
+  # Implementation note: regex rules in this engine flag "not_matches", so patterns
+  # below represent the *allowed* form.
+  # ---------------------------------------------------------------------------
+  - id: ena_product_name_too_long
+    type: regex
+    severity: warn
+    config:
+      pattern: "annotations*.csv"
+      column: product_name
+      regex: "^.{0,100}$"
+      message: "Product name exceeds 100 characters (ENA guidance: keep concise)."
+
+  - id: ena_product_contains_pseudogene
+    type: regex
+    severity: warn
+    config:
+      pattern: "annotations*.csv"
+      column: product_name
+      regex: "(?i)^(?!.*\\bpseudogene\\b).*$"
+      message: "Product name contains 'pseudogene'-verify this is intended and compliant with ENA naming guidance."
+
+  - id: ena_product_contains_like
+    type: regex
+    severity: warn
+    config:
+      pattern: "annotations*.csv"
+      column: product_name
+      regex: "(?i)^(?!.*(?:\\b|-)like\\b).*$"
+      message: "Product name contains 'like' (e.g., 'X-like'). Consider a more specific description if available."
+  # ---------------------------------------------------------------------------
+  # Gene naming heuristics
+  # Rationale: flag placeholder/ambiguous gene names commonly rejected or questioned.
+  # ---------------------------------------------------------------------------
+  - id: ena_gene_contains_like
+    type: regex
+    severity: warn
+    config:
+      pattern: "annotations*.csv"
+      column: gene_name
+      regex: "(?i)^(?!.*(?:\\b|-)like\\b).*$"
+      message: "Gene name contains 'like' (e.g., 'X-like'). Consider a more specific standardized gene symbol/name if available."
+
+  - id: ena_gene_contains_orf
+    type: regex
+    severity: warn
+    config:
+      pattern: "annotations*.csv"
+      column: gene_name
+      regex: "(?i)^(?!.*\\borf[\\w-]*\\b).*$"
+      message: "Gene name looks ORF-style (e.g., ORF1ab/orf3a). Consider standardized gene naming if known."
+  # ---------------------------------------------------------------------------
+  # Hygiene: whitespace + control characters
+  # Rationale: Webin submissions often fail on hidden chars, leading/trailing spaces,
+  # tabs/newlines, non-breaking spaces, and zero-width characters.
+  # ---------------------------------------------------------------------------
+  - id: ena_product_name_whitespace_or_control_chars
+    type: regex
+    severity: warn
+    config:
+      pattern: "annotations*.csv"
+      column: product_name
+      regex: "^(?!.*(?:^\\s+|\\s+$|[\\x00-\\x1F\\x7F]|\\t|\\r|\\n|\\u00A0|\\u200B|\\u200C|\\u200D|\\uFEFF)).*$"
+      message: "Product name contains suspicious whitespace/control characters (leading/trailing whitespace, tabs/newlines, or invisible chars). Normalize/trim."
+
+  - id: ena_gene_name_whitespace_or_control_chars
+    type: regex
+    severity: warn
+    config:
+      pattern: "annotations*.csv"
+      column: gene_name
+      regex: "^(?!.*(?:^\\s+|\\s+$|[\\x00-\\x1F\\x7F]|\\t|\\r|\\n|\\u00A0|\\u200B|\\u200C|\\u200D|\\uFEFF)).*$"
+      message: "Gene name contains suspicious whitespace/control characters (leading/trailing whitespace, tabs/newlines, or invisible chars). Normalize/trim."

@@ -6,3 +6,5 @@ __pycache__/
 .vscode/
 fixtures/raw_downloads/
 fixtures/tmp/
+out/
+fixtures/tiny/annotations_all.tsv
