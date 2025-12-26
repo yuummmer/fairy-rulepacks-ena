@@ -9,18 +9,19 @@ This repository contains **ENA-focused rulepacks** for **FAIRy** — a local-fir
 ---
 
 ## What’s inside
-> Note: the committed tiny fixture is currently **CSV** (`fixtures/tiny/annotations.csv`) while TSV support is being added.  
-> After TSV support lands, we’ll switch the fixture + examples to `.tsv` (or support both).
-
+> Note: the committed tiny fixture is provided as **both TSV and CSV** (`fixtures/tiny/annotations.tsv` and `fixtures/tiny/annotations.csv`). **TSV is canonical**; CSV is a delimiter-equivalent copy to ensure FAIRy works with either.
 
 - `rulepacks/`
   - `ena_webin_cli/` — starter ENA community rulepack (Webin-style naming/annotation hygiene checks)
 - `fixtures/`
-  - `tiny/annotations.csv` — committed tiny fixture used for demos/tests
+  - `tiny/annotations.tsv` — committed tiny fixture used for demos/tests (tab-delimited)
+  - `tiny/annotations.csv` — CSV equivalent of the tiny fixture (same content)
   - `PROVENANCE.md` — where fixtures came from and how they were derived
 - `scripts/`
   - `extract_embl_products.py` — helper to extract CDS `/product` (and gene/locus when present) from EMBL flatfiles into TSV
-
+- `tests/`
+  - `golden/expected_report.tsv.json` — snapshot output for TSV fixture
+  - `golden/expected_report.csv.json` — snapshot output for CSV fixture
 ---
 
 ## Prerequisites
@@ -34,7 +35,7 @@ pip install -e /path/to/fairy-core
 ```
 ---
 ## Quickstart (dev workflow)
-### Generate/refresh the derived CSV from ENA EMBL flatfiles
+### Generate/refresh fixtures from ENA EMBL flatfiles
 
 1. Download one or more ENA records as EMBL flatfile (public INSDC/ENA accessions).
 2. Put them under:
@@ -47,29 +48,45 @@ fixtures/raw_downloads/ena_embl
 python scripts/extract_embl_products.py
 ```
 This writes:
-`fixtures/tiny/annotations_all.csv` (derived pool)
+`fixtures/tiny/annotations_all.tsv` (derived pool)
 Then curate/update:
-`fixtures/tiny/annotations.csv` (committed tiny fixture)
+`fixtures/tiny/annotations.tsv` (committed tiny fixture)
+
+(Optional) regenerate `fixtures/tiny/annotations.csv` from the TSV for compatibility testing.
 See `fixtures/PROVENANCE.md` for sourcing and notes.
 ---
 
 ## Running FAIRy with ENA rulepack
 
-Run FAIRy against a fixture file with the ENA rulepack::
+Run FAIRy against a fixture file with the ENA rulepack:
 
 ```bash
 mkdir -p out
 
 fairy validate \
-  --inputs default=fixtures/tiny/annotations.csv \
+  --inputs default=fixtures/tiny/annotations.tsv \
   --rulepack rulepacks/ena_webin_cli/rulepack.yaml \
   --report-md out/ena_validate.md \
   --report-json out/ena_validate.json
 
 ```
+You can also pass `fixtures/tiny/annotations.csv`.
+
 Outputs typically include:
 - `out/ena_validate.md` (human-readable)
 - `out/ena_validate.json` (machine-readable)
+
+## Tests (goldens)
+
+Run snapshot tests (requires FAIRy installed):
+
+```bash
+FAIRY_BIN=fairy scripts/run_golden.sh
+```
+To refresh expected outputs after intentional change:
+```bash
+UPDATE_GOLDEN=1 FAIRY_BIN=fairy scripts/run_golden.sh
+```
 ---
 ## Contributing
 Issues and PRs welcome:

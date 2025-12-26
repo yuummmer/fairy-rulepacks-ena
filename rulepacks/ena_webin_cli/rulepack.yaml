@@ -2,11 +2,10 @@ meta:
   name: ena_webin_cli
   version: 0.1.0
   description: Community starter rulepack inspired by common ENA/Webin feedback patterns.
-  target: csv
 
 tables:
   default:
-    path: fixtures/tiny/annotations.csv
+    path: fixtures/tiny/annotations.tsv
 
 rules:
   # ---------------------------------------------------------------------------
@@ -18,7 +17,8 @@ rules:
     type: required
     severity: warn
     config:
-      pattern: "annotations*.csv"
+      pattern: "annotations.*"
+
       columns:
         - product_name
 
@@ -32,7 +32,7 @@ rules:
     type: regex
     severity: warn
     config:
-      pattern: "annotations*.csv"
+      pattern: "annotations.*"
       column: product_name
       regex: "^.{0,100}$"
       message: "Product name exceeds 100 characters (ENA guidance: keep concise)."
@@ -41,7 +41,7 @@ rules:
     type: regex
     severity: warn
     config:
-      pattern: "annotations*.csv"
+      pattern: "annotations.*"
       column: product_name
       regex: "(?i)^(?!.*\\bpseudogene\\b).*$"
       message: "Product name contains 'pseudogene'-verify this is intended and compliant with ENA naming guidance."
@@ -50,7 +50,7 @@ rules:
     type: regex
     severity: warn
     config:
-      pattern: "annotations*.csv"
+      pattern: "annotations.*"
       column: product_name
       regex: "(?i)^(?!.*(?:\\b|-)like\\b).*$"
       message: "Product name contains 'like' (e.g., 'X-like'). Consider a more specific description if available."
@@ -62,7 +62,7 @@ rules:
     type: regex
     severity: warn
     config:
-      pattern: "annotations*.csv"
+      pattern: "annotations.*"
       column: gene_name
       regex: "(?i)^(?!.*(?:\\b|-)like\\b).*$"
       message: "Gene name contains 'like' (e.g., 'X-like'). Consider a more specific standardized gene symbol/name if available."
@@ -71,7 +71,7 @@ rules:
     type: regex
     severity: warn
     config:
-      pattern: "annotations*.csv"
+      pattern: "annotations.*"
       column: gene_name
       regex: "(?i)^(?!.*\\borf[\\w-]*\\b).*$"
       message: "Gene name looks ORF-style (e.g., ORF1ab/orf3a). Consider standardized gene naming if known."
@@ -84,7 +84,7 @@ rules:
     type: regex
     severity: warn
     config:
-      pattern: "annotations*.csv"
+      pattern: "annotations.*"
       column: product_name
       regex: "^(?!.*(?:^\\s+|\\s+$|[\\x00-\\x1F\\x7F]|\\t|\\r|\\n|\\u00A0|\\u200B|\\u200C|\\u200D|\\uFEFF)).*$"
       message: "Product name contains suspicious whitespace/control characters (leading/trailing whitespace, tabs/newlines, or invisible chars). Normalize/trim."
@@ -93,7 +93,7 @@ rules:
     type: regex
     severity: warn
     config:
-      pattern: "annotations*.csv"
+      pattern: "annotations.*"
       column: gene_name
       regex: "^(?!.*(?:^\\s+|\\s+$|[\\x00-\\x1F\\x7F]|\\t|\\r|\\n|\\u00A0|\\u200B|\\u200C|\\u200D|\\uFEFF)).*$"
       message: "Gene name contains suspicious whitespace/control characters (leading/trailing whitespace, tabs/newlines, or invisible chars). Normalize/trim."
