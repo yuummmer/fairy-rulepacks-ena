@@ -32,10 +32,13 @@ _Example WARN findings from the ENA/Webin-style starter checks._
 
 You need **FAIRy** installed from `fairy-core`.
 
+**FAIRycore requirement:** TSV inputs require `fairy-core v0.2.2+` (CSV works on earlier versions).
+
 Example (from a Python venv):
 
 ```bash
 pip install -e /path/to/fairy-core
+
 ```
 ---
 ## Quickstart (dev workflow)
