@@ -6,6 +6,10 @@ This repository contains **ENA-focused rulepacks** for **FAIRy** — a local-fir
 - Reusable, ENA/Webin-style checks that apply broadly to common ENA submission metadata patterns.
 - Small public fixtures and examples for demos/tests.
 
+## Example output
+
+![Example FAIRy ENA validation report](docs/screenshots/ena_validate_report.png)
+_Example WARN findings from the ENA/Webin-style starter checks._
 ---
 
 ## What’s inside
@@ -15,7 +19,7 @@ This repository contains **ENA-focused rulepacks** for **FAIRy** — a local-fir
   - `ena_webin_cli/` — starter ENA community rulepack (Webin-style naming/annotation hygiene checks)
 - `fixtures/`
   - `tiny/annotations.tsv` — committed tiny fixture used for demos/tests (tab-delimited)
-  - `tiny/annotations.csv` — CSV equivalent of the tiny fixture (same content)
+  - `tiny/annotations.csv` — CSV equivalent of the tiny fixture (delimiter-equivalent copy)
   - `PROVENANCE.md` — where fixtures came from and how they were derived
 - `scripts/`
   - `extract_embl_products.py` — helper to extract CDS `/product` (and gene/locus when present) from EMBL flatfiles into TSV
