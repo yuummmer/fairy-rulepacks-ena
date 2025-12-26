@@ -1,0 +1,188 @@
+{
+  "attestation": {
+    "inputs": [
+      {
+        "bytes": 2901,
+        "name": "default",
+        "path": "fixtures/tiny/annotations.tsv",
+        "rows": 55,
+        "sha256": "af211b40e4ab18fb030d29a4f62e01a1060e176ae302abb62fbc9285a427a634"
+      }
+    ],
+    "rulepack": {
+      "id": "ena_webin_cli",
+      "path": "rulepacks/ena_webin_cli/rulepack.yaml",
+      "version": "0.1.0"
+    }
+  },
+  "metadata": {
+    "inputs": {
+      "default": "fixtures/tiny/annotations.tsv"
+    }
+  },
+  "resources": [
+    {
+      "name": "default",
+      "path": "fixtures/tiny/annotations.tsv",
+      "rules": [
+        {
+          "evidence": {
+            "column": "gene_name",
+            "count": 0,
+            "ignore_empty": true,
+            "mode": "not_matches",
+            "regex": "(?i)^(?!.*(?:\\b|-)like\\b).*$"
+          },
+          "id": "ena_gene_contains_like",
+          "severity": "warn",
+          "status": "PASS",
+          "type": "regex"
+        },
+        {
+          "evidence": {
+            "column": "gene_name",
+            "count": 1,
+            "ignore_empty": true,
+            "ignored_empty_count": 6,
+            "mode": "not_matches",
+            "regex": "(?i)^(?!.*\\borf[\\w-]*\\b).*$",
+            "rows": [
+              51
+            ],
+            "samples": [
+              {
+                "row": 51,
+                "value": "orfX"
+              }
+            ]
+          },
+          "id": "ena_gene_contains_orf",
+          "severity": "warn",
+          "status": "WARN",
+          "type": "regex"
+        },
+        {
+          "evidence": {
+            "column": "gene_name",
+            "count": 0,
+            "ignore_empty": true,
+            "mode": "not_matches",
+            "regex": "^(?!.*(?:^\\s+|\\s+$|[\\x00-\\x1F\\x7F]|\\t|\\r|\\n|\\u00A0|\\u200B|\\u200C|\\u200D|\\uFEFF)).*$"
+          },
+          "id": "ena_gene_name_whitespace_or_control_chars",
+          "severity": "warn",
+          "status": "PASS",
+          "type": "regex"
+        },
+        {
+          "evidence": {
+            "column": "product_name",
+            "count": 4,
+            "ignore_empty": true,
+            "mode": "not_matches",
+            "regex": "(?i)^(?!.*(?:\\b|-)like\\b).*$",
+            "rows": [
+              4,
+              5,
+              6,
+              53
+            ],
+            "samples": [
+              {
+                "row": 4,
+                "value": "non-LTR retroelement reverse transcriptase-like protein"
+              },
+              {
+                "row": 5,
+                "value": "Myb-related transcription factor LBM2-like protein"
+              },
+              {
+                "row": 6,
+                "value": "S-adenosylmethionine:2-demethylmenaquinone methyltransferase-like"
+              },
+              {
+                "row": 53,
+                "value": "some enzyme-like protein"
+              }
+            ]
+          },
+          "id": "ena_product_contains_like",
+          "severity": "warn",
+          "status": "WARN",
+          "type": "regex"
+        },
+        {
+          "evidence": {
+            "column": "product_name",
+            "count": 1,
+            "ignore_empty": true,
+            "mode": "not_matches",
+            "regex": "(?i)^(?!.*\\bpseudogene\\b).*$",
+            "rows": [
+              52
+            ],
+            "samples": [
+              {
+                "row": 52,
+                "value": "pseudogene"
+              }
+            ]
+          },
+          "id": "ena_product_contains_pseudogene",
+          "severity": "warn",
+          "status": "WARN",
+          "type": "regex"
+        },
+        {
+          "evidence": {
+            "count": 0
+          },
+          "id": "ena_product_name_present",
+          "severity": "warn",
+          "status": "PASS",
+          "type": "required"
+        },
+        {
+          "evidence": {
+            "column": "product_name",
+            "count": 1,
+            "ignore_empty": true,
+            "mode": "not_matches",
+            "regex": "^.{0,100}$",
+            "rows": [
+              54
+            ],
+            "samples": [
+              {
+                "row": 54,
+                "value": "this product name is intentionally very long to test max length handling in reports and remediation guidance for submitters"
+              }
+            ]
+          },
+          "id": "ena_product_name_too_long",
+          "severity": "warn",
+          "status": "WARN",
+          "type": "regex"
+        },
+        {
+          "evidence": {
+            "column": "product_name",
+            "count": 0,
+            "ignore_empty": true,
+            "mode": "not_matches",
+            "regex": "^(?!.*(?:^\\s+|\\s+$|[\\x00-\\x1F\\x7F]|\\t|\\r|\\n|\\u00A0|\\u200B|\\u200C|\\u200D|\\uFEFF)).*$"
+          },
+          "id": "ena_product_name_whitespace_or_control_chars",
+          "severity": "warn",
+          "status": "PASS",
+          "type": "regex"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "fail": 0,
+    "pass": 4,
+    "warn": 4
+  }
+}
